@@ -1,0 +1,30 @@
+[
+  {
+    "name": "Textbee",
+    "url": "https://api.textbee.dev/api/v1/gateway/send-sms",
+    "method": "POST",
+    "headers": {"x-api-key": "YOUR_TEXTBEE_KEY", "Content-Type": "application/json"},
+    "body": {"recipients": ["{phone}"], "message": "OTP: 123456"}
+  },
+  {
+    "name": "httpSMS",
+    "url": "https://api.httpsms.dev/v1/messages",
+    "method": "POST",
+    "headers": {"x-api-key": "YOUR_HTTPSMS_KEY", "Content-Type": "application/json"},
+    "body": {"to": "{phone}", "content": "OTP: 654321"}
+  },
+  {
+    "name": "Fast2SMS",
+    "url": "https://www.fast2sms.com/dev/bulkV2?authorization=YOUR_KEY&route=otp&variables_values=123456&numbers={phone}",
+    "method": "GET",
+    "headers": {},
+    "body": {}
+  },
+  {
+    "name": "MSG91",
+    "url": "https://api.msg91.com/api/v5/otp?template_id=YOUR_TEMPLATE&mobile={phone}&authkey=YOUR_KEY",
+    "method": "GET",
+    "headers": {},
+    "body": {}
+  }
+]

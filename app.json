@@ -1,0 +1,13 @@
+{
+  "name": "Safe Telegram Test Console",
+  "description": "Admin-restricted Telegram bot for local dry-run simulations only. No calls or messages are sent.",
+  "repository": "https://github.com/oyevipthoma88/Deal_call_sms",
+  "keywords": ["telegram", "dry-run", "heroku"],
+  "env": {
+    "BOT_TOKEN": {"description": "Telegram bot token from @BotFather", "required": true, "value": ""},
+    "ALLOWED_USERS": {"description": "Comma-separated numeric Telegram user IDs permitted to use this bot", "required": true, "value": ""},
+    "MAX_SIMULATIONS": {"description": "Maximum local dry-run steps per run (1–100)", "required": false, "value": "20"}
+  },
+  "formation": {"worker": {"quantity": 1, "size": "basic"}},
+  "buildpacks": [{"url": "heroku/python"}]
+}

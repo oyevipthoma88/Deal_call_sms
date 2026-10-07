@@ -23,7 +23,7 @@ An admin-restricted Telegram bot for **local dry-run simulations**. The original
 ## Heroku one-click deploy
 Use the Heroku button below, then set `BOT_TOKEN` and `ALLOWED_USERS` in the app's Config Vars if Heroku does not collect them during provisioning. Scale the `worker` process to 1. This is a Telegram polling worker and does not need a web dyno.
 
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/oyevipthoma88/Deal_call_sms)
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/oyevipthoma88/Deal_call_sms/tree/manus/safe-telegram-heroku)
 
 Heroku deploy buttons deploy the repository's default branch. For a fork or private deployment, use Heroku Dashboard → **New app → Deploy** and configure the same environment variables.
 

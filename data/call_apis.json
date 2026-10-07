@@ -1,0 +1,12 @@
+[
+  {
+    "name": "CallAPI1",
+    "url": "https://api.example.com/call?phone={phone}",
+    "method": "GET"
+  },
+  {
+    "name": "CallAPI2",
+    "url": "https://api.example2.com/voice?number={phone}",
+    "method": "GET"
+  }
+]

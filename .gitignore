@@ -1,5 +1,5 @@
 __pycache__/
 *.pyc
+logs/
+*.log
 .env
-logs/*.log
-config.py

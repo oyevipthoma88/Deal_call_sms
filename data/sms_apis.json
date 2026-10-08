@@ -26,5 +26,33 @@
     "method": "GET",
     "headers": {},
     "body": {}
+  },
+  {
+    "name": "2Factor",
+    "url": "https://2factor.in/API/V1/YOUR_API_KEY/SMS/{phone}/AUTOGEN",
+    "method": "GET",
+    "headers": {},
+    "body": {}
+  },
+  {
+    "name": "TextLocal",
+    "url": "https://api.textlocal.in/send/?apikey=YOUR_KEY&numbers={phone}&message=OTP+123456",
+    "method": "GET",
+    "headers": {},
+    "body": {}
+  },
+  {
+    "name": "Vonage",
+    "url": "https://rest.nexmo.com/sms/json",
+    "method": "POST",
+    "headers": {"Content-Type": "application/json"},
+    "body": {"api_key": "YOUR_KEY", "api_secret": "YOUR_SECRET", "to": "{phone}", "from": "OTP", "text": "Your OTP is 123456"}
+  },
+  {
+    "name": "Plivo",
+    "url": "https://api.plivo.com/v1/Account/YOUR_AUTH_ID/Message/",
+    "method": "POST",
+    "headers": {"Content-Type": "application/json"},
+    "body": {"src": "OTP", "dst": "{phone}", "text": "Your OTP is 123456"}
   }
 ]

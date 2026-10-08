@@ -1,12 +1,37 @@
 [
   {
-    "name": "CallAPI1",
-    "url": "https://api.example.com/call?phone={phone}",
-    "method": "GET"
+    "name": "Exotel Voice",
+    "url": "https://api.exotel.com/v1/Accounts/YOUR_SID/Calls/connect.json",
+    "method": "POST",
+    "headers": {"Content-Type": "application/json"},
+    "body": {"From": "YOUR_NUMBER", "To": "{phone}", "CallerId": "YOUR_CALLER_ID", "Url": "http://my.exotel.com/otp"}
   },
   {
-    "name": "CallAPI2",
-    "url": "https://api.example2.com/voice?number={phone}",
-    "method": "GET"
+    "name": "Plivo Voice",
+    "url": "https://api.plivo.com/v1/Account/YOUR_AUTH_ID/Call/",
+    "method": "POST",
+    "headers": {"Content-Type": "application/json"},
+    "body": {"from": "YOUR_NUMBER", "to": "{phone}", "answer_url": "https://s3.amazonaws.com/plivocloud/Trumpet.xml", "answer_method": "GET"}
+  },
+  {
+    "name": "Twilio Voice",
+    "url": "https://api.twilio.com/2010-04-01/Accounts/YOUR_SID/Calls.json",
+    "method": "POST",
+    "headers": {"Content-Type": "application/x-www-form-urlencoded"},
+    "body": {"From": "YOUR_TWILIO_NUMBER", "To": "{phone}", "Url": "http://demo.twilio.com/docs/voice.xml"}
+  },
+  {
+    "name": "Vonage Voice",
+    "url": "https://api.nexmo.com/v1/calls",
+    "method": "POST",
+    "headers": {"Content-Type": "application/json", "Authorization": "Bearer YOUR_JWT"},
+    "body": {"to": [{"type": "phone", "number": "{phone}"}], "from": {"type": "phone", "number": "YOUR_NUMBER"}, "ncco": [{"action": "talk", "text": "Your OTP is 123456"}]}
+  },
+  {
+    "name": "Kaleyra Voice",
+    "url": "https://api.kaleyra.io/v1/HXIN{phone}/calls",
+    "method": "POST",
+    "headers": {"Content-Type": "application/json"},
+    "body": {"to": "{phone}", "type": "OTP", "bridge": "YOUR_NUMBER"}
   }
 ]

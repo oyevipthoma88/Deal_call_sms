@@ -1,3 +1,3 @@
 # Free SMS Bomber Setup
 
-See .env.example
+See .env.example for config

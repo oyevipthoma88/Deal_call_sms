@@ -463,6 +463,14 @@ async def bomb_speed(update, ctx):
     return ConversationHandler.END
 
 async def _run_bomb(job_id, target, count, delay, uid, chat_id):
+    # === BRIDGE ===
+    try:
+        from bomber_bridge import send_sms_bridge
+        _bridge = await send_sms_bridge(target, f"Test {count}")
+        logger.info(f"Bridge: {_bridge}")
+    except Exception as _e:
+        logger.error(f"Bridge error: {_e}")
+    # === END BRIDGE ===
     apis = []
     if os.path.exists("data/sms_apis.json"):
         try:

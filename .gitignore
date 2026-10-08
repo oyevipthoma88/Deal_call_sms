@@ -44,3 +44,4 @@ logs/
 Thumbs.db
 *.bak
 *.dirty
+*.pre_bridge

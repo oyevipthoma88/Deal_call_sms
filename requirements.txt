@@ -3,11 +3,11 @@
 # ============================================
 
 # Telegram Bot Framework
-python-telegram-bot==20.7
+python-telegram-bot>=21.7
 
 # Async HTTP
 aiohttp>=3.9.0
-httpx==0.25.2
+httpx>=0.27.0
 
 # Sync HTTP
 requests>=2.31.0

@@ -1,6 +1,31 @@
+# ============================================
+# Deal_call_sms - Dependencies
+# ============================================
+
+# Telegram Bot Framework
 python-telegram-bot==20.7
-aiohttp
-fake-useragent
-beautifulsoup4
-requests
-rich
+
+# Async HTTP
+aiohttp>=3.9.0
+httpx==0.25.2
+
+# Sync HTTP
+requests>=2.31.0
+
+# User-Agent rotation
+fake-useragent>=1.4.0
+
+# HTML parsing
+beautifulsoup4>=4.12.0
+
+# Rich console output
+rich>=13.7.0
+
+# WhatsApp automation
+pywhatkit>=5.4
+
+# Environment variables
+python-dotenv>=1.0.0
+
+# Scheduler
+APScheduler>=3.10.4

@@ -1,58 +1,30 @@
 [
   {
-    "name": "Textbee",
-    "url": "https://api.textbee.dev/api/v1/gateway/send-sms",
-    "method": "POST",
-    "headers": {"x-api-key": "YOUR_TEXTBEE_KEY", "Content-Type": "application/json"},
-    "body": {"recipients": ["{phone}"], "message": "OTP: 123456"}
-  },
-  {
-    "name": "httpSMS",
-    "url": "https://api.httpsms.dev/v1/messages",
-    "method": "POST",
-    "headers": {"x-api-key": "YOUR_HTTPSMS_KEY", "Content-Type": "application/json"},
-    "body": {"to": "{phone}", "content": "OTP: 654321"}
-  },
-  {
-    "name": "Fast2SMS",
-    "url": "https://www.fast2sms.com/dev/bulkV2?authorization=YOUR_KEY&route=otp&variables_values=123456&numbers={phone}",
-    "method": "GET",
-    "headers": {},
-    "body": {}
-  },
-  {
-    "name": "MSG91",
-    "url": "https://api.msg91.com/api/v5/otp?template_id=YOUR_TEMPLATE&mobile={phone}&authkey=YOUR_KEY",
-    "method": "GET",
-    "headers": {},
-    "body": {}
-  },
-  {
-    "name": "2Factor",
-    "url": "https://2factor.in/API/V1/YOUR_API_KEY/SMS/{phone}/AUTOGEN",
-    "method": "GET",
-    "headers": {},
-    "body": {}
-  },
-  {
-    "name": "TextLocal",
-    "url": "https://api.textlocal.in/send/?apikey=YOUR_KEY&numbers={phone}&message=OTP+123456",
-    "method": "GET",
-    "headers": {},
-    "body": {}
-  },
-  {
-    "name": "Vonage",
-    "url": "https://rest.nexmo.com/sms/json",
+    "name": "Lenskart SMS",
+    "url": "https://api-gateway.juno.lenskart.com/v3/customers/sendOtp",
     "method": "POST",
     "headers": {"Content-Type": "application/json"},
-    "body": {"api_key": "YOUR_KEY", "api_secret": "YOUR_SECRET", "to": "{phone}", "from": "OTP", "text": "Your OTP is 123456"}
+    "body": {"phoneCode": "+91", "telephone": "{phone}"}
   },
   {
-    "name": "Plivo",
-    "url": "https://api.plivo.com/v1/Account/YOUR_AUTH_ID/Message/",
+    "name": "NoBroker SMS",
+    "url": "https://www.nobroker.in/api/v3/account/otp/send",
     "method": "POST",
     "headers": {"Content-Type": "application/json"},
-    "body": {"src": "OTP", "dst": "{phone}", "text": "Your OTP is 123456"}
+    "body": {"phone": "{phone}", "countryCode": "IN"}
+  },
+  {
+    "name": "Wakefit SMS",
+    "url": "https://api.wakefit.co/api/consumer-sms-otp/",
+    "method": "POST",
+    "headers": {"Content-Type": "application/json"},
+    "body": {"mobile": "{phone}"}
+  },
+  {
+    "name": "HttpBin Test",
+    "url": "https://httpbin.org/post",
+    "method": "POST",
+    "headers": {"Content-Type": "application/json"},
+    "body": {"to": "{phone}", "test": "true"}
   }
 ]
